@@ -201,7 +201,6 @@ class HimayaStack(Stack):
         api_resource_payment.add_method(
             "GET", apigateway.LambdaIntegration(fn_payment_hook))
 
-        #     new CfnOutput(this, 'WebsiteUrl', { value: static_website_bucket.bucketWebsiteUrl });
         CfnOutput(self, 'WebsiteUrl',
                   value=s3_static_website.bucket_website_url,
                   )
