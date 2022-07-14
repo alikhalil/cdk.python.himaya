@@ -147,12 +147,12 @@ class HimayaStack(Stack):
                 'ses:SendTemplatedEmail',
             ],
             resources=[
-                'arn:aws:ses:{SES_REGION}:{ACCOUNT_ID}:identity/{SES_EMAIL_FROM}'.format(
-                    SES_REGION=SES_REGION, SES_EMAIL_FROM=SES_EMAIL_FROM, ACCOUNT_ID=Stack.of(self).account),
-                'arn:aws:ses:{SES_REGION}:{ACCOUNT_ID}:identity/{SES_EMAIL_TO}'.format(
-                    SES_EMAIL_TO=SES_EMAIL_TO, SES_REGION=SES_REGION, ACCOUNT_ID=Stack.of(self).account),
-                'arn:aws:ses:{SES_REGION}:{ACCOUNT_ID}:identity/{SES_DOMAIN}'.format(
-                    SES_REGION=SES_REGION, SES_DOMAIN=SES_DOMAIN, ACCOUNT_ID=Stack.of(self).account),
+                'arn:aws:ses:{REGION}:{ACCOUNT_ID}:identity/{EMAIL_FROM}'.format(
+                    REGION=self.region, ACCOUNT_ID=self.account, EMAIL_FROM=SES_EMAIL_FROM),
+                'arn:aws:ses:{REGION}:{ACCOUNT_ID}:identity/{EMAIL_TO}'.format(
+                    REGION=self.region, ACCOUNT_ID=self.account, EMAIL_TO=SES_EMAIL_TO),
+                'arn:aws:ses:{REGION}:{ACCOUNT_ID}:identity/{DOMAIN}'.format(
+                    REGION=self.region, ACCOUNT_ID=self.account, DOMAIN=SES_DOMAIN),
             ],
         )
 
