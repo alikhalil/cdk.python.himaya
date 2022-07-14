@@ -6,8 +6,10 @@
 
 import requests
 import json
+from pprint import pformat
 
-OUTPUT_FILE = 'src/breaches.json'
+
+OUTPUT_FILE = 'src/breaches.py'
 HIBP_BREACHES_URL = 'https://haveibeenpwned.com/api/v3/breaches'
 
 r = requests.get(HIBP_BREACHES_URL)
@@ -18,13 +20,7 @@ new_breaches = {}
 for breach in original_breaches:
     new_breaches[breach['Name']] = breach
 
+OUTPUT_CONTENT = 'breaches = {}'.format(pformat(new_breaches))
 fh = open(OUTPUT_FILE, 'w')
-fh.write(
-    json.dumps(
-        new_breaches,
-        sort_keys=True,
-        indent=4,
-        separators=(',', ': ')
-        )
-    )
+fh.write(OUTPUT_CONTENT)
 fh.close()

@@ -112,6 +112,15 @@ class HimayaStack(Stack):
                                              },
                                              )
 
+        fnLayer_payment_hook = lambda_.LayerVersion(self, "LayerForPaymentHook",
+                                                    code=lambda_.Code.from_asset(
+                                                        './layers/payment_hook'),
+                                                    compatible_runtimes=[
+                                                        lambda_.Runtime.PYTHON_3_9],
+                                                    license="Apache-2.0",
+                                                    description="A layer to provide python dependencies for the payment hook lambda function"
+                                                    )
+
         # Process payment hook
         fn_payment_hook = lambda_.Function(self, "PaymentHook",
                                            code=lambda_.Code.from_asset(
@@ -122,6 +131,7 @@ class HimayaStack(Stack):
                                            memory_size=512,
                                            timeout=Duration.seconds(10),
                                            insights_version=lambda_.LambdaInsightsVersion.VERSION_1_0_135_0,
+                                           layers=[fnLayer_payment_hook],
                                            log_retention=logs.RetentionDays.ONE_WEEK,
                                            environment={
                                                'BUCKET': s3_static_website.bucket_name,
